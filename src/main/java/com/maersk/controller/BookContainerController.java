@@ -29,7 +29,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
  
 @RestController
-@RequestMapping("/api/bookings/")
+@RequestMapping("/api/bookings")
 public class BookContainerController {
     @Autowired
     private BookContainerService bookContainerService;
@@ -54,7 +54,7 @@ public class BookContainerController {
     	HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<ShipmentDetails> entity = new HttpEntity<ShipmentDetails>(sd,headers);
-        
+        // calling external API
         CheckAvailabilityVO vo = restTemplate.exchange(
            "https://maersk.com/api/bookings/checkAvailable", HttpMethod.POST, entity, CheckAvailabilityVO.class).getBody();
         Map<String, Boolean> refMap = new HashMap<String, Boolean>();
